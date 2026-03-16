@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Servicios — Atenea Data</title>
+    <meta name="description" content="Servicios especializados en Power BI: diagnóstico, reporting ejecutivo, modelado, gobierno, rescate y operación continua.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .service-detail {
+            padding: clamp(60px, 8vw, 100px) 0;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .service-detail:nth-child(even) {
+            background: var(--black-surface);
+        }
+
+        .service-detail__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(40px, 6vw, 80px);
+            align-items: start;
+        }
+
+        .service-detail__number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.1em;
+            margin-bottom: 16px;
+        }
+
+        .service-detail__title {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .service-detail__desc {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            margin-bottom: 32px;
+        }
+
+        .service-detail__meta {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .service-meta-item {
+            padding: 24px;
+            background: var(--black-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 4px;
+        }
+
+        .service-meta-item__label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .service-meta-item__text {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* CTA at bottom */
+        .services-cta {
+            padding: clamp(80px, 10vw, 120px) 0;
+            text-align: center;
+        }
+
+        .services-cta__title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .services-cta__text {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
+        }
+
+        .services-cta__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--black-deep);
+            background: var(--accent);
+            padding: 16px 40px;
+            border-radius: 2px;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .services-cta__btn:hover {
+            background: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .service-detail__inner { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="nav" id="nav">
+        <div class="nav__inner">
+            <a href="index.html" class="nav__logo">Atenea <span>Data</span></a>
+            <ul class="nav__links" id="navLinks">
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="index.html#metodo">Método</a></li>
+                <li><a href="index.html#equipo">Equipo</a></li>
+                <li><a href="contacto.html" class="nav__cta">Contactar</a></li>
+            </ul>
+            <button class="nav__hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <div class="container">
+            <p class="page-header__tag">Servicios</p>
+            <h1 class="page-header__title">Qué resolvemos</h1>
+            <p class="page-header__subtitle">Cubrimos el ciclo completo de Power BI: desde el diagnóstico inicial hasta la operación continua. Cada servicio responde a un problema concreto de negocio.</p>
+        </div>
+    </header>
+
+    <!-- Servicio 1 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">01</p>
+                    <h2 class="service-detail__title">Diagnóstico Power BI</h2>
+                    <p class="service-detail__desc">Auditoría completa de tu entorno actual. Evaluamos qué funciona, qué falla y qué falta. Revisamos modelo de datos, rendimiento, seguridad, adopción y calidad de los informes existentes. El resultado es un mapa claro de dónde estás y una hoja de ruta priorizada de hacia dónde ir.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">No sabes si tu entorno Power BI está bien montado, si los datos son fiables o si estás aprovechando la herramienta.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Informe de estado completo + hoja de ruta priorizada con recomendaciones accionables.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Empresas que ya usan Power BI pero no están seguras de que esté bien planteado o que quieren llevarlo al siguiente nivel.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicio 2 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">02</p>
+                    <h2 class="service-detail__title">Reporting ejecutivo</h2>
+                    <p class="service-detail__desc">Diseñamos dashboards con criterio de negocio. No se trata de poner gráficos: se trata de definir qué preguntas responde cada informe, para quién, cómo se lee y qué decisiones habilita. La experiencia de lectura está pensada desde la dirección, no desde el técnico.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">Tienes dashboards que nadie usa, informes que no responden a lo que necesita la dirección o una experiencia de lectura confusa.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Dashboards funcionales en Power BI + guía de lectura ejecutiva + definición de KPIs clave.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Dirección general, financiera u operaciones que necesitan ver su negocio con claridad y tomar decisiones basadas en datos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicio 3 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">03</p>
+                    <h2 class="service-detail__title">Modelado y arquitectura</h2>
+                    <p class="service-detail__desc">Construimos el modelo semántico que hay debajo de los informes: tablas, relaciones, métricas DAX, lógica de cálculo. Lo que hace que los datos sean fiables, consistentes y que el entorno se pueda mantener y escalar sin que se convierta en un caos.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">Métricas que no cuadran, modelos imposibles de mantener, rendimiento deficiente o cálculos que nadie entiende.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Modelo de datos Power BI documentado, optimizado y construido sobre buenas prácticas.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Empresas que necesitan una base de datos sólida y mantenible, no parches sobre un modelo improvisado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicio 4 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">04</p>
+                    <h2 class="service-detail__title">Gobierno y plataforma</h2>
+                    <p class="service-detail__desc">Definimos y configuramos todo lo que convierte Power BI en una plataforma gobernada: roles, seguridad, workspaces, pipelines de despliegue, políticas de acceso y estándares. Para que no sea un caos de ficheros compartidos, sino un entorno controlado.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">Múltiples usuarios accediendo sin control, informes duplicados, datos sensibles sin proteger o despliegues manuales propensos a errores.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Entorno Power BI configurado + documentación de gobierno + políticas de seguridad y acceso.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Empresas con múltiples áreas o usuarios que consumen datos y necesitan orden, seguridad y escalabilidad.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicio 5 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">05</p>
+                    <h2 class="service-detail__title">Rescate Power BI</h2>
+                    <p class="service-detail__desc">Para entornos que se montaron sin criterio y ahora son un problema. Datos que no cuadran, informes en los que nadie confía, rendimiento inaceptable, modelos imposibles de mantener. Auditamos, diagnosticamos y reconstruimos sobre una base sólida.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">Tu entorno Power BI existe pero no funciona. Los usuarios no se fían, el rendimiento es malo y nadie quiere tocarlo.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Entorno reconstruido sobre base sólida + documentación + transición desde el entorno anterior.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Empresas que invirtieron en Power BI pero el resultado no cumple expectativas y necesitan rehacer las cosas bien.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicio 6 -->
+    <section class="service-detail">
+        <div class="container">
+            <div class="service-detail__inner reveal">
+                <div>
+                    <p class="service-detail__number">06</p>
+                    <h2 class="service-detail__title">Operación continua</h2>
+                    <p class="service-detail__desc">Mantenimiento, evolución, soporte y mejora continua de tu entorno Power BI. Esto es lo que convierte Power BI en una capacidad permanente de tu empresa sin necesidad de contratar equipo interno. Nos encargamos de que tu entorno mejore con el tiempo, no se degrade.</p>
+                </div>
+                <div class="service-detail__meta">
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Problema que resuelve</p>
+                        <p class="service-meta-item__text">No tienes equipo interno para mantener Power BI, los informes se quedan obsoletos y nadie evoluciona el entorno.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Entregable</p>
+                        <p class="service-meta-item__text">Equipo externo dedicado + soporte continuo + evolución mensual del entorno. Tarifa mensual fija.</p>
+                    </div>
+                    <div class="service-meta-item">
+                        <p class="service-meta-item__label">Para quién</p>
+                        <p class="service-meta-item__text">Empresas que quieren Power BI funcionando y mejorando sin gestionar un equipo técnico interno dedicado.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="services-cta">
+        <div class="container">
+            <h2 class="services-cta__title">¿No sabes por dónde empezar?</h2>
+            <p class="services-cta__text">Cuéntanos tu situación y te recomendamos el enfoque más adecuado. Sin compromiso.</p>
+            <a href="contacto.html" class="services-cta__btn">
+                Contactar
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <a href="index.html" class="footer__logo">Atenea <span>Data</span></a>
+                <div class="footer__links">
+                    <a href="servicios.html">Servicios</a>
+                    <a href="index.html#metodo">Método</a>
+                    <a href="index.html#equipo">Equipo</a>
+                    <a href="mailto:info@ateneadata.com">info@ateneadata.com</a>
+                </div>
+                <p class="footer__copy">© 2025 Atenea Data</p>
+            </div>
+            <div class="footer__legal">
+                <a href="aviso-legal.html">Aviso legal</a>
+                <a href="privacidad.html">Política de privacidad</a>
+                <a href="cookies.html">Política de cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => { nav.classList.toggle('nav--scrolled', window.pageYOffset > 60); });
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+        hamburger.addEventListener('click', () => { navLinks.classList.toggle('nav__links--open'); });
+        navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('nav__links--open'); }); });
+        const reveals = document.querySelectorAll('.reveal');
+        const obs = new IntersectionObserver((entries) => { entries.forEach(e => { if(e.isIntersecting) { e.target.classList.add('reveal--visible'); obs.unobserve(e.target); }}); }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
