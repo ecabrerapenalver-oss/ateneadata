@@ -1,263 +1,1525 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Atenea Data — Decision Systems on Power BI</title>
-    <meta name="description" content="Boutique consultancy specializing in Power BI. Design, implementation and operation of executive reporting and decision systems.">
+    <title>Atenea Data — Sistemas de decisión sobre Power BI</title>
+    <meta name="description" content="Consultora boutique especializada en Power BI. Diseño, implantación y operación de sistemas de reporting y decisión ejecutiva.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../styles.css">
     <style>
-        /* All page-specific styles from the Spanish index, copied here */
-        .hero { min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden; background: var(--black-deep); }
-        .hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 234, 219, 0.06) 0%, transparent 70%); pointer-events: none; }
-        .hero__grid { position: absolute; inset: 0; opacity: 0.03; background-image: linear-gradient(var(--accent) 1px, transparent 1px), linear-gradient(90deg, var(--accent) 1px, transparent 1px); background-size: 60px 60px; mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%); -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%); }
-        .hero__content { position: relative; z-index: 2; max-width: 900px; }
-        .hero__tag { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 32px; opacity: 0; transform: translateY(20px); animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards; }
-        .hero__title { font-family: var(--font-display); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 32px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s var(--ease-out-expo) 0.5s forwards; }
-        .hero__title em { font-style: italic; color: var(--accent); }
-        .hero__subtitle { font-size: clamp(1.05rem, 1.5vw, 1.2rem); font-weight: 300; line-height: 1.7; color: var(--text-secondary); max-width: 620px; margin-bottom: 48px; opacity: 0; transform: translateY(30px); animation: fadeUp 1s var(--ease-out-expo) 0.7s forwards; }
-        .hero__cta { display: inline-flex; align-items: center; gap: 12px; font-size: 0.9rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black-deep); background: var(--accent); padding: 16px 40px; border-radius: 2px; transition: all 0.4s var(--ease-out-expo); opacity: 0; transform: translateY(30px); animation: fadeUp 1s var(--ease-out-expo) 0.9s forwards; }
-        .hero__cta:hover { background: var(--text-primary); transform: translateY(-2px); box-shadow: 0 10px 40px rgba(94, 234, 219, 0.15); }
-        .hero__cta svg { transition: transform 0.3s ease; }
-        .hero__cta:hover svg { transform: translateX(4px); }
-        .hero__scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeIn 1s var(--ease-out-expo) 1.5s forwards; }
-        .hero__scroll span { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-tertiary); }
-        .hero__scroll-line { width: 1px; height: 40px; background: linear-gradient(to bottom, var(--accent-dim), transparent); animation: scrollPulse 2s ease-in-out infinite; }
-        .statement { padding: clamp(80px, 12vw, 160px) 0; border-top: 1px solid var(--border-subtle); }
-        .statement__text { font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.8rem); font-weight: 400; line-height: 1.35; color: var(--text-primary); max-width: 900px; }
-        .statement__text em { font-style: italic; color: var(--accent); }
-        .services { padding: clamp(80px, 12vw, 140px) 0; background: var(--black-surface); }
-        .services__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); }
-        .service-card { background: var(--black-surface); padding: clamp(32px, 3vw, 48px); transition: all 0.5s var(--ease-out-expo); position: relative; }
-        .service-card::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.5s var(--ease-out-expo); }
-        .service-card:hover { background: var(--black-card); }
-        .service-card:hover::after { transform: scaleX(1); }
-        .service-card__number { font-family: var(--font-mono); font-size: 0.7rem; color: var(--text-tertiary); letter-spacing: 0.1em; margin-bottom: 24px; }
-        .service-card__title { font-family: var(--font-display); font-size: 1.45rem; font-weight: 400; margin-bottom: 16px; line-height: 1.2; }
-        .service-card__desc { font-size: 0.92rem; font-weight: 300; color: var(--text-secondary); line-height: 1.65; }
-        .diff { padding: clamp(80px, 12vw, 160px) 0; border-top: 1px solid var(--border-subtle); }
-        .diff__header { margin-bottom: 80px; }
-        .diff__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; }
-        .diff-item__number { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent); letter-spacing: 0.15em; margin-bottom: 20px; }
-        .diff-item__title { font-family: var(--font-display); font-size: 1.5rem; font-weight: 400; margin-bottom: 16px; line-height: 1.25; }
-        .diff-item__text { font-size: 0.92rem; font-weight: 300; color: var(--text-secondary); line-height: 1.7; }
-        .gallery { padding: clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px); background: var(--black-surface); overflow: hidden; position: relative; }
-        .gallery::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: var(--border-subtle); }
-        .gallery__header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 48px; }
-        .gallery__nav { display: flex; gap: 12px; flex-shrink: 0; }
-        .gallery__btn { width: 48px; height: 48px; border: 1px solid var(--border-medium); border-radius: 2px; background: transparent; color: var(--text-secondary); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-        .gallery__btn:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-glow); }
-        .gallery__btn svg { width: 20px; height: 20px; }
-        .gallery__track-wrapper { position: relative; }
-        .gallery__track-wrapper::before, .gallery__track-wrapper::after { content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2; pointer-events: none; }
-        .gallery__track-wrapper::before { left: 0; background: linear-gradient(to right, var(--black-surface), transparent); }
-        .gallery__track-wrapper::after { right: 0; background: linear-gradient(to left, var(--black-surface), transparent); }
-        .gallery__track { display: flex; gap: 24px; overflow-x: auto; scroll-behavior: smooth; scrollbar-width: none; -ms-overflow-style: none; padding: 0 clamp(24px, 5vw, 80px) 20px; cursor: grab; }
+        /* ============================================
+           ATENEA DATA — Design System
+           ============================================ */
+        :root {
+            --black-deep: #07070B;
+            --black-surface: #0E0E14;
+            --black-card: #14141C;
+            --black-elevated: #1A1A24;
+            --border-subtle: #1E1E2A;
+            --border-medium: #2A2A38;
+            --text-primary: #F0F0F5;
+            --text-secondary: #9898A8;
+            --text-tertiary: #6A6A7A;
+            --accent: #5EEADB;
+            --accent-dim: #3BBCAF;
+            --accent-glow: rgba(94, 234, 219, 0.08);
+            --accent-glow-strong: rgba(94, 234, 219, 0.15);
+            --blue-accent: #7B8FCC;
+            --gradient-hero: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(94, 234, 219, 0.06) 0%, transparent 70%);
+            --font-display: 'Instrument Serif', Georgia, serif;
+            --font-body: 'DM Sans', -apple-system, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* ============================================
+           Reset & Base
+           ============================================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black-deep);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; display: block; }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--black-deep);
+        }
+
+        /* ============================================
+           Utility
+           ============================================ */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 80px);
+        }
+
+        .container--wide {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 clamp(24px, 5vw, 80px);
+        }
+
+        /* ============================================
+           Navigation
+           ============================================ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 0 clamp(24px, 5vw, 80px);
+            transition: all 0.5s var(--ease-out-expo);
+        }
+
+        .nav--scrolled {
+            background: rgba(7, 7, 11, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .nav__inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .nav__logo {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+        }
+
+        .nav__logo span {
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        .nav__links {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav__links a {
+            font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .nav__links a:hover { color: var(--text-primary); }
+
+        .nav__cta {
+            font-size: 0.82rem !important;
+            font-weight: 500 !important;
+            color: var(--accent) !important;
+            padding: 10px 24px;
+            border: 1px solid var(--accent-dim);
+            border-radius: 2px;
+            transition: all 0.3s ease !important;
+        }
+
+        .nav__cta:hover {
+            background: var(--accent);
+            color: var(--black-deep) !important;
+        }
+
+        /* Mobile menu */
+        .nav__hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+
+        .nav__hamburger span {
+            width: 24px;
+            height: 1.5px;
+            background: var(--text-primary);
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================
+           Hero
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--black-deep);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--gradient-hero);
+            pointer-events: none;
+        }
+
+        .hero__grid {
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(var(--accent) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse 60% 60% at 50% 50%, black 20%, transparent 70%);
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+        }
+
+        .hero__tag {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s var(--ease-out-expo) 0.3s forwards;
+        }
+
+        .hero__title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 400;
+            line-height: 1.05;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s var(--ease-out-expo) 0.5s forwards;
+        }
+
+        .hero__title em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        .hero__subtitle {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+            font-weight: 300;
+            line-height: 1.7;
+            color: var(--text-secondary);
+            max-width: 620px;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s var(--ease-out-expo) 0.7s forwards;
+        }
+
+        .hero__cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--black-deep);
+            background: var(--accent);
+            padding: 16px 40px;
+            border-radius: 2px;
+            transition: all 0.4s var(--ease-out-expo);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s var(--ease-out-expo) 0.9s forwards;
+        }
+
+        .hero__cta:hover {
+            background: var(--text-primary);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(94, 234, 219, 0.15);
+        }
+
+        .hero__cta svg {
+            transition: transform 0.3s ease;
+        }
+
+        .hero__cta:hover svg {
+            transform: translateX(4px);
+        }
+
+        .hero__scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            opacity: 0;
+            animation: fadeIn 1s var(--ease-out-expo) 1.5s forwards;
+        }
+
+        .hero__scroll span {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .hero__scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--accent-dim), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        /* ============================================
+           Statement
+           ============================================ */
+        .statement {
+            padding: clamp(80px, 12vw, 160px) 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .statement__text {
+            font-family: var(--font-display);
+            font-size: clamp(1.6rem, 3.5vw, 2.8rem);
+            font-weight: 400;
+            line-height: 1.35;
+            color: var(--text-primary);
+            max-width: 900px;
+        }
+
+        .statement__text em {
+            font-style: italic;
+            color: var(--accent);
+        }
+
+        /* ============================================
+           Services
+           ============================================ */
+        .services {
+            padding: clamp(80px, 12vw, 140px) 0;
+            background: var(--black-surface);
+        }
+
+        .section-tag {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+
+        .section-subtitle {
+            font-size: 1.05rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            max-width: 560px;
+            line-height: 1.7;
+            margin-bottom: 64px;
+        }
+
+        .services__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border-subtle);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .service-card {
+            background: var(--black-surface);
+            padding: clamp(32px, 3vw, 48px);
+            transition: all 0.5s var(--ease-out-expo);
+            position: relative;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s var(--ease-out-expo);
+        }
+
+        .service-card:hover {
+            background: var(--black-card);
+        }
+
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-card__number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+        }
+
+        .service-card__title {
+            font-family: var(--font-display);
+            font-size: 1.45rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.2;
+        }
+
+        .service-card__desc {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           Differentiators
+           ============================================ */
+        .diff {
+            padding: clamp(80px, 12vw, 160px) 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .diff__header {
+            margin-bottom: 80px;
+        }
+
+        .diff__grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+        }
+
+        .diff-item__number {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--accent);
+            letter-spacing: 0.15em;
+            margin-bottom: 20px;
+        }
+
+        .diff-item__title {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 16px;
+            line-height: 1.25;
+        }
+
+        .diff-item__text {
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* ============================================
+           Work Gallery — Horizontal Scroll
+           ============================================ */
+        .gallery {
+            padding: clamp(80px, 10vw, 140px) 0 clamp(60px, 8vw, 100px);
+            background: var(--black-surface);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: var(--border-subtle);
+        }
+
+        .gallery__header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 48px;
+        }
+
+        .gallery__nav {
+            display: flex;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .gallery__btn {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border-medium);
+            border-radius: 2px;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .gallery__btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-glow);
+        }
+
+        .gallery__btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        .gallery__track-wrapper {
+            position: relative;
+        }
+
+        .gallery__track-wrapper::before,
+        .gallery__track-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 80px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .gallery__track-wrapper::before {
+            left: 0;
+            background: linear-gradient(to right, var(--black-surface), transparent);
+        }
+
+        .gallery__track-wrapper::after {
+            right: 0;
+            background: linear-gradient(to left, var(--black-surface), transparent);
+        }
+
+        .gallery__track {
+            display: flex;
+            gap: 24px;
+            overflow-x: auto;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+            padding: 0 clamp(24px, 5vw, 80px) 20px;
+            cursor: grab;
+        }
+
         .gallery__track:active { cursor: grabbing; }
         .gallery__track::-webkit-scrollbar { display: none; }
-        .gallery__item { flex: 0 0 auto; width: clamp(500px, 55vw, 800px); position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-medium); background: var(--black-card); transition: all 0.5s var(--ease-out-expo); box-shadow: 0 4px 20px rgba(0,0,0,0.25), 0 12px 48px rgba(0,0,0,0.3); }
-        .gallery__item:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 20px 60px rgba(0,0,0,0.4), 0 0 80px rgba(94, 234, 219, 0.04); transform: translateY(-4px); }
-        .gallery__item-bar { display: flex; align-items: center; gap: 8px; padding: 12px 18px; background: var(--black-elevated); border-bottom: 1px solid var(--border-subtle); }
-        .gallery__item-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border-medium); }
-        .gallery__item-img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; display: block; }
-        .gallery__item-info { padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; }
-        .gallery__item-title { font-size: 0.9rem; font-weight: 500; color: var(--text-primary); }
-        .gallery__item-type { font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); padding: 5px 12px; border: 1px solid var(--border-subtle); border-radius: 2px; }
-        .gallery__caption { text-align: center; margin-top: 48px; }
-        .gallery__caption p { font-family: var(--font-display); font-size: clamp(1.2rem, 2vw, 1.6rem); font-style: italic; color: var(--text-secondary); }
-        .gallery__progress { margin-top: 32px; display: flex; justify-content: center; }
-        .gallery__progress-bar { width: 200px; height: 2px; background: var(--border-subtle); border-radius: 1px; position: relative; overflow: hidden; }
-        .gallery__progress-fill { position: absolute; top: 0; left: 0; height: 100%; background: var(--accent); border-radius: 1px; width: 30%; transition: left 0.3s ease, width 0.3s ease; }
-        .method { padding: clamp(80px, 12vw, 160px) 0; border-top: 1px solid var(--border-subtle); }
-        .method__header { margin-bottom: 80px; }
-        .method__steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--border-subtle); border: 1px solid var(--border-subtle); }
-        .method-step { background: var(--black-deep); padding: clamp(28px, 3vw, 44px); position: relative; }
-        .method-step__number { font-family: var(--font-mono); font-size: 2.5rem; font-weight: 500; color: var(--accent); opacity: 0.2; margin-bottom: 24px; line-height: 1; }
-        .method-step__title { font-family: var(--font-display); font-size: 1.35rem; font-weight: 400; margin-bottom: 14px; }
-        .method-step__text { font-size: 0.88rem; font-weight: 300; color: var(--text-secondary); line-height: 1.65; }
-        .team { padding: clamp(80px, 12vw, 140px) 0; background: var(--black-surface); }
-        .team__header { margin-bottom: 64px; }
-        .team__intro { font-size: 1.08rem; font-weight: 300; color: var(--text-secondary); line-height: 1.75; max-width: 700px; margin-bottom: 64px; }
-        .team__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 48px; }
-        .team-member { display: flex; gap: 28px; align-items: flex-start; }
-        .team-member__photo { width: 120px; height: 150px; border-radius: 4px; background: var(--black-elevated); border: 1px solid var(--border-subtle); flex-shrink: 0; overflow: hidden; }
-        .team-member__name { font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 4px; }
-        .team-member__role { font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 14px; }
-        .team-member__bio { font-size: 0.9rem; font-weight: 300; color: var(--text-secondary); line-height: 1.65; }
-        .cta-section { padding: clamp(80px, 10vw, 120px) 0; background: var(--accent); position: relative; overflow: hidden; }
-        .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 50%, rgba(7,7,11,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(7,7,11,0.05) 0%, transparent 50%); }
-        .cta-section .container { position: relative; z-index: 2; text-align: center; }
-        .cta-section__title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 400; color: var(--black-deep); margin-bottom: 16px; }
-        .cta-section__subtitle { font-size: 1.05rem; font-weight: 400; color: rgba(7, 7, 11, 0.65); max-width: 500px; margin: 0 auto 40px; line-height: 1.6; }
-        .cta-section__btn { display: inline-flex; align-items: center; gap: 10px; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); background: var(--black-deep); padding: 18px 44px; border-radius: 2px; transition: all 0.4s var(--ease-out-expo); }
-        .cta-section__btn:hover { transform: translateY(-2px); box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
-        .reveal-stagger > * { opacity: 0; transform: translateY(30px); transition: all 0.7s var(--ease-out-expo); }
+
+        .gallery__item {
+            flex: 0 0 auto;
+            width: clamp(500px, 55vw, 800px);
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-medium);
+            background: var(--black-card);
+            transition: all 0.5s var(--ease-out-expo);
+            box-shadow:
+                0 4px 20px rgba(0,0,0,0.25),
+                0 12px 48px rgba(0,0,0,0.3);
+        }
+
+        .gallery__item:hover {
+            border-color: var(--border-medium);
+            box-shadow:
+                0 8px 32px rgba(0,0,0,0.35),
+                0 20px 60px rgba(0,0,0,0.4),
+                0 0 80px rgba(94, 234, 219, 0.04);
+            transform: translateY(-4px);
+        }
+
+        .gallery__item-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 18px;
+            background: var(--black-elevated);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .gallery__item-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--border-medium);
+        }
+
+        .gallery__item-img {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            object-fit: cover;
+            object-position: top left;
+            display: block;
+        }
+
+        .gallery__item-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background:
+                linear-gradient(135deg, var(--black-card) 0%, var(--black-elevated) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery__item-placeholder::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.03;
+            background-image:
+                linear-gradient(var(--accent) 1px, transparent 1px),
+                linear-gradient(90deg, var(--accent) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+
+        .gallery__item-placeholder-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery__item-placeholder-icon svg {
+            width: 22px;
+            height: 22px;
+            color: var(--text-tertiary);
+        }
+
+        .gallery__item-placeholder-text {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+        }
+
+        .gallery__item-info {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .gallery__item-title {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .gallery__item-type {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            padding: 5px 12px;
+            border: 1px solid var(--border-subtle);
+            border-radius: 2px;
+        }
+
+        .gallery__caption {
+            text-align: center;
+            margin-top: 48px;
+        }
+
+        .gallery__caption p {
+            font-family: var(--font-display);
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            font-style: italic;
+            color: var(--text-secondary);
+        }
+
+        .gallery__progress {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .gallery__progress-bar {
+            width: 200px;
+            height: 2px;
+            background: var(--border-subtle);
+            border-radius: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery__progress-fill {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: var(--accent);
+            border-radius: 1px;
+            width: 30%;
+            transition: left 0.3s ease, width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .gallery__item { width: clamp(320px, 85vw, 500px); }
+            .gallery__header { flex-direction: column; align-items: flex-start; gap: 24px; }
+            .gallery__track-wrapper::before,
+            .gallery__track-wrapper::after { width: 40px; }
+        }
+
+        /* ============================================
+           Method
+           ============================================ */
+        .method {
+            padding: clamp(80px, 12vw, 160px) 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .method__header {
+            margin-bottom: 80px;
+        }
+
+        .method__steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--border-subtle);
+            border: 1px solid var(--border-subtle);
+        }
+
+        .method-step {
+            background: var(--black-deep);
+            padding: clamp(28px, 3vw, 44px);
+            position: relative;
+        }
+
+        .method-step__number {
+            font-family: var(--font-mono);
+            font-size: 2.5rem;
+            font-weight: 500;
+            color: var(--accent);
+            opacity: 0.2;
+            margin-bottom: 24px;
+            line-height: 1;
+        }
+
+        .method-step__title {
+            font-family: var(--font-display);
+            font-size: 1.35rem;
+            font-weight: 400;
+            margin-bottom: 14px;
+        }
+
+        .method-step__text {
+            font-size: 0.88rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           Team
+           ============================================ */
+        .team {
+            padding: clamp(80px, 12vw, 140px) 0;
+            background: var(--black-surface);
+        }
+
+        .team__header {
+            margin-bottom: 64px;
+        }
+
+        .team__intro {
+            font-size: 1.08rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 700px;
+            margin-bottom: 64px;
+        }
+
+        .team__grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 48px;
+        }
+
+        .team-member {
+            display: flex;
+            gap: 28px;
+            align-items: flex-start;
+        }
+
+        .team-member__photo {
+            width: 120px;
+            height: 150px;
+            border-radius: 4px;
+            background: var(--black-elevated);
+            border: 1px solid var(--border-subtle);
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .team-member__photo-placeholder {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .team-member__name {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin-bottom: 4px;
+        }
+
+        .team-member__role {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 14px;
+        }
+
+        .team-member__bio {
+            font-size: 0.9rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ============================================
+           CTA Section
+           ============================================ */
+        .cta-section {
+            padding: clamp(80px, 10vw, 120px) 0;
+            background: var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 50%, rgba(7,7,11,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(7,7,11,0.05) 0%, transparent 50%);
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        .cta-section__title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3.2rem);
+            font-weight: 400;
+            color: var(--black-deep);
+            margin-bottom: 16px;
+        }
+
+        .cta-section__subtitle {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: rgba(7, 7, 11, 0.65);
+            max-width: 500px;
+            margin: 0 auto 40px;
+            line-height: 1.6;
+        }
+
+        .cta-section__btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-primary);
+            background: var(--black-deep);
+            padding: 18px 44px;
+            border-radius: 2px;
+            transition: all 0.4s var(--ease-out-expo);
+        }
+
+        .cta-section__btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+
+        /* ============================================
+           Footer
+           ============================================ */
+        .footer {
+            padding: 48px 0;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .footer__inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer__logo {
+            font-family: var(--font-body);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .footer__logo span {
+            font-weight: 300;
+            color: var(--accent);
+        }
+
+        .footer__links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .footer__links a {
+            font-size: 0.82rem;
+            color: var(--text-tertiary);
+            transition: color 0.3s ease;
+        }
+
+        .footer__links a:hover { color: var(--text-secondary); }
+
+        .footer__copy {
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+        }
+
+        /* ============================================
+           Animations
+           ============================================ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(var(--y, 30px)); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 0.8; transform: scaleY(1.2); }
+        }
+
+        /* Scroll reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.9s var(--ease-out-expo);
+        }
+
+        .reveal--visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-stagger > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s var(--ease-out-expo);
+        }
+
         .reveal-stagger--visible > *:nth-child(1) { transition-delay: 0s; opacity: 1; transform: none; }
         .reveal-stagger--visible > *:nth-child(2) { transition-delay: 0.08s; opacity: 1; transform: none; }
         .reveal-stagger--visible > *:nth-child(3) { transition-delay: 0.16s; opacity: 1; transform: none; }
         .reveal-stagger--visible > *:nth-child(4) { transition-delay: 0.24s; opacity: 1; transform: none; }
         .reveal-stagger--visible > *:nth-child(5) { transition-delay: 0.32s; opacity: 1; transform: none; }
         .reveal-stagger--visible > *:nth-child(6) { transition-delay: 0.4s; opacity: 1; transform: none; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(var(--y, 30px)); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes scrollPulse { 0%, 100% { opacity: 0.3; transform: scaleY(1); } 50% { opacity: 0.8; transform: scaleY(1.2); } }
-        @media (max-width: 1024px) { .services__grid { grid-template-columns: repeat(2, 1fr); } .diff__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; } .method__steps { grid-template-columns: repeat(2, 1fr); } }
-        @media (max-width: 768px) { .services__grid { grid-template-columns: 1fr; } .diff__grid { grid-template-columns: 1fr; gap: 48px; } .method__steps { grid-template-columns: 1fr; } .team__grid { grid-template-columns: 1fr; } .gallery__item { width: clamp(320px, 85vw, 500px); } .gallery__header { flex-direction: column; align-items: flex-start; gap: 24px; } .gallery__track-wrapper::before, .gallery__track-wrapper::after { width: 40px; } }
+
+        /* ============================================
+           Responsive
+           ============================================ */
+        @media (max-width: 1024px) {
+            .services__grid { grid-template-columns: repeat(2, 1fr); }
+            .diff__grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+            .method__steps { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .nav__links { display: none; }
+            .nav__hamburger { display: flex; }
+
+            .nav__links--open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                inset: 0;
+                background: var(--black-deep);
+                align-items: center;
+                justify-content: center;
+                gap: 32px;
+                z-index: 999;
+            }
+
+            .nav__links--open a {
+                font-size: 1.2rem;
+            }
+
+            .services__grid { grid-template-columns: 1fr; }
+            .diff__grid { grid-template-columns: 1fr; gap: 48px; }
+            .method__steps { grid-template-columns: 1fr; }
+            .team__grid { grid-template-columns: 1fr; }
+
+            .footer__inner {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+
+            .footer__links { flex-wrap: wrap; justify-content: center; }
+        }
     </style>
 </head>
 <body>
+
+    <!-- ============================================
+         Navigation
+         ============================================ -->
     <nav class="nav" id="nav">
         <div class="nav__inner">
-            <a href="index.html" class="nav__logo">Atenea <span>Data</span></a>
+            <a href="#" class="nav__logo">Atenea <span>Data</span></a>
             <ul class="nav__links" id="navLinks">
-                <li><a href="services.html">Services</a></li>
-                <li><a href="index.html#method">Method</a></li>
-                <li><a href="index.html#team">Team</a></li>
-                <li><a href="contact.html" class="nav__cta">Contact</a></li>
-                <li class="nav__lang"><a href="../index.html">ES</a><span class="nav__lang-sep">|</span><a href="#" class="active">EN</a></li>
+                <li><a href="servicios.html">Servicios</a></li>
+                <li><a href="#metodo">Método</a></li>
+                <li><a href="#equipo">Equipo</a></li>
+                <li><a href="contacto.html" class="nav__cta">Contactar</a></li>
+                <li class="nav__lang"><a href="#" class="active">ES</a><span class="nav__lang-sep">|</span><a href="en/index.html">EN</a></li>
             </ul>
-            <button class="nav__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+            <button class="nav__hamburger" id="hamburger" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
         </div>
     </nav>
 
+    <!-- ============================================
+         Hero
+         ============================================ -->
     <section class="hero">
         <div class="hero__grid"></div>
         <div class="container">
             <div class="hero__content">
-                <p class="hero__tag">Boutique consultancy · Power BI</p>
-                <h1 class="hero__title">We design<br><em>decision</em> systems.</h1>
-                <p class="hero__subtitle">We implement and operate Power BI environments with business-driven criteria. So your data stops being reports and becomes real decisions.</p>
-                <a href="contact.html" class="hero__cta">
-                    Let's talk
+                <p class="hero__tag">Consultora boutique · Power BI</p>
+                <h1 class="hero__title">Diseñamos sistemas<br>de <em>decisión.</em></h1>
+                <p class="hero__subtitle">Implantamos y operamos entornos Power BI con criterio de negocio. Para que tus datos dejen de ser informes y se conviertan en decisiones.</p>
+                <a href="contacto.html" class="hero__cta">
+                    Hablemos
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                 </a>
             </div>
         </div>
-        <div class="hero__scroll"><span>Scroll</span><div class="hero__scroll-line"></div></div>
+        <div class="hero__scroll">
+            <span>Scroll</span>
+            <div class="hero__scroll-line"></div>
+        </div>
     </section>
 
+    <!-- ============================================
+         Statement
+         ============================================ -->
     <section class="statement">
         <div class="container reveal">
-            <p class="statement__text">A dashboard nobody looks at is a failed project. We design reporting that is used, understood and drives <em>real decisions.</em></p>
+            <p class="statement__text">Un dashboard que nadie consulta es un proyecto fallido. Nosotros diseñamos reporting que se usa, se entiende y genera <em>decisiones reales.</em></p>
         </div>
     </section>
 
-    <section class="services" id="services">
+    <!-- ============================================
+         Services
+         ============================================ -->
+    <section class="services" id="servicios">
         <div class="container">
             <div class="reveal">
-                <p class="section-tag">Services</p>
-                <h2 class="section-title">What we solve</h2>
-                <p class="section-subtitle">We cover the full cycle: from initial diagnosis to continuous operation. Each service is designed to solve a specific business problem.</p>
+                <p class="section-tag">Servicios</p>
+                <h2 class="section-title">Qué resolvemos</h2>
+                <p class="section-subtitle">Cubrimos el ciclo completo: desde el diagnóstico hasta la operación continua. Cada servicio está diseñado para resolver un problema concreto de negocio.</p>
             </div>
             <div class="services__grid reveal-stagger">
-                <div class="service-card"><p class="service-card__number">01</p><h3 class="service-card__title">Power BI Diagnosis</h3><p class="service-card__desc">Full audit of your current environment. What works, what fails, what's missing. Status report and prioritized roadmap.</p></div>
-                <div class="service-card"><p class="service-card__number">02</p><h3 class="service-card__title">Executive reporting</h3><p class="service-card__desc">Dashboards designed for leadership to read, understand and decide. Reading experience driven by business needs.</p></div>
-                <div class="service-card"><p class="service-card__number">03</p><h3 class="service-card__title">Data modeling & architecture</h3><p class="service-card__desc">Robust semantic models, reliable DAX metrics, consistent and maintainable calculation logic for the long term.</p></div>
-                <div class="service-card"><p class="service-card__number">04</p><h3 class="service-card__title">Governance & platform</h3><p class="service-card__desc">Security, roles, workspaces, deployment. Power BI as a governed platform, not a chaos of shared files.</p></div>
-                <div class="service-card"><p class="service-card__number">05</p><h3 class="service-card__title">Power BI rescue</h3><p class="service-card__desc">Rebuilding environments set up without criteria. Inconsistent data, poor performance, unsustainable models.</p></div>
-                <div class="service-card"><p class="service-card__number">06</p><h3 class="service-card__title">Continuous operation</h3><p class="service-card__desc">Ongoing maintenance, evolution and support. Power BI as a permanent capability of your company, without internal staff.</p></div>
+                <div class="service-card">
+                    <p class="service-card__number">01</p>
+                    <h3 class="service-card__title">Diagnóstico Power BI</h3>
+                    <p class="service-card__desc">Auditoría de tu entorno actual. Qué funciona, qué falla, qué falta. Informe de estado y hoja de ruta priorizada.</p>
+                </div>
+                <div class="service-card">
+                    <p class="service-card__number">02</p>
+                    <h3 class="service-card__title">Reporting ejecutivo</h3>
+                    <p class="service-card__desc">Dashboards diseñados para que la dirección lea, entienda y decida. Experiencia de lectura pensada desde el negocio.</p>
+                </div>
+                <div class="service-card">
+                    <p class="service-card__number">03</p>
+                    <h3 class="service-card__title">Modelado y arquitectura</h3>
+                    <p class="service-card__desc">Modelos semánticos robustos, métricas DAX fiables, lógica de cálculo consistente y mantenible a largo plazo.</p>
+                </div>
+                <div class="service-card">
+                    <p class="service-card__number">04</p>
+                    <h3 class="service-card__title">Gobierno y plataforma</h3>
+                    <p class="service-card__desc">Seguridad, roles, workspaces, despliegue. Power BI como plataforma gobernada, no como caos de ficheros.</p>
+                </div>
+                <div class="service-card">
+                    <p class="service-card__number">05</p>
+                    <h3 class="service-card__title">Rescate Power BI</h3>
+                    <p class="service-card__desc">Reconstrucción de entornos montados sin criterio. Datos inconsistentes, rendimiento pobre, modelo insostenible.</p>
+                </div>
+                <div class="service-card">
+                    <p class="service-card__number">06</p>
+                    <h3 class="service-card__title">Operación continua</h3>
+                    <p class="service-card__desc">Mantenimiento, evolución y soporte permanente. Power BI como capacidad continua de tu empresa, sin equipo interno.</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- ============================================
+         Differentiators
+         ============================================ -->
     <section class="diff">
         <div class="container">
-            <div class="diff__header reveal"><p class="section-tag">Differentiators</p><h2 class="section-title">Why Atenea Data</h2></div>
+            <div class="diff__header reveal">
+                <p class="section-tag">Diferencial</p>
+                <h2 class="section-title">Por qué Atenea Data</h2>
+            </div>
             <div class="diff__grid reveal-stagger">
-                <div class="diff-item"><p class="diff-item__number">01</p><h3 class="diff-item__title">We only do Power BI</h3><p class="diff-item__text">We are not a generalist consultancy that also makes dashboards. Power BI is our only specialty. Real technical depth, not surface-level knowledge.</p></div>
-                <div class="diff-item"><p class="diff-item__number">02</p><h3 class="diff-item__title">We think from the business</h3><p class="diff-item__text">Before touching any data, we understand what decisions you need to make. We design for whoever reads the report, not whoever builds it.</p></div>
-                <div class="diff-item"><p class="diff-item__number">03</p><h3 class="diff-item__title">We stay</h3><p class="diff-item__text">We don't deliver and disappear. We operate, maintain and evolve your environment. We turn Power BI into a permanent capability of your company.</p></div>
+                <div class="diff-item">
+                    <p class="diff-item__number">01</p>
+                    <h3 class="diff-item__title">Solo hacemos Power BI</h3>
+                    <p class="diff-item__text">No somos una consultora generalista que también hace dashboards. Power BI es nuestra única especialidad. Profundidad técnica real, no conocimiento superficial.</p>
+                </div>
+                <div class="diff-item">
+                    <p class="diff-item__number">02</p>
+                    <h3 class="diff-item__title">Pensamos desde el negocio</h3>
+                    <p class="diff-item__text">Antes de tocar un dato, entendemos qué decisiones necesitas tomar. Diseñamos para quien lee el informe, no para quien lo construye.</p>
+                </div>
+                <div class="diff-item">
+                    <p class="diff-item__number">03</p>
+                    <h3 class="diff-item__title">Nos quedamos</h3>
+                    <p class="diff-item__text">No entregamos y desaparecemos. Operamos, mantenemos y evolucionamos tu entorno. Convertimos Power BI en una capacidad permanente de tu empresa.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="gallery" id="work">
+    <!-- ============================================
+         Work Gallery — Horizontal Scroll
+         ============================================ -->
+    <section class="gallery" id="trabajo">
         <div class="container">
             <div class="gallery__header reveal">
                 <div>
-                    <p class="section-tag">Our work</p>
-                    <h2 class="section-title">Reporting that gets used</h2>
-                    <p class="section-subtitle" style="margin-bottom:0;">Real dashboards designed with business criteria, solid modeling and executive reading experience.</p>
+                    <p class="section-tag">Nuestro trabajo</p>
+                    <h2 class="section-title">Reporting que se usa</h2>
+                    <p class="section-subtitle" style="margin-bottom:0;">Dashboards reales diseñados con criterio de negocio, modelo sólido y experiencia de lectura ejecutiva.</p>
                 </div>
                 <div class="gallery__nav">
-                    <button class="gallery__btn" id="galleryPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg></button>
-                    <button class="gallery__btn" id="galleryNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                    <button class="gallery__btn" id="galleryPrev" aria-label="Anterior">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    </button>
+                    <button class="gallery__btn" id="galleryNext" aria-label="Siguiente">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
         <div class="gallery__track-wrapper">
             <div class="gallery__track" id="galleryTrack">
-                <div class="gallery__item"><div class="gallery__item-bar"><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div></div><img class="gallery__item-img" src="../powerbi1.png" alt="Maintenance cost control"><div class="gallery__item-info"><span class="gallery__item-title">Maintenance cost control</span><span class="gallery__item-type">Operational reporting</span></div></div>
-                <div class="gallery__item"><div class="gallery__item-bar"><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div></div><img class="gallery__item-img" src="../powerbi2.png" alt="Inventory and consumption trends"><div class="gallery__item-info"><span class="gallery__item-title">Inventory and consumption trends</span><span class="gallery__item-type">Stock analysis</span></div></div>
-                <div class="gallery__item"><div class="gallery__item-bar"><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div></div><img class="gallery__item-img" src="../powerbi3.png" alt="Asset ranking and work orders"><div class="gallery__item-info"><span class="gallery__item-title">Asset ranking and work orders</span><span class="gallery__item-type">Modeling + KPIs</span></div></div>
-                <div class="gallery__item"><div class="gallery__item-bar"><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div></div><img class="gallery__item-img" src="../powerbi4.png" alt="Asset management and geolocation"><div class="gallery__item-info"><span class="gallery__item-title">Asset management and geolocation</span><span class="gallery__item-type">Governance + reporting</span></div></div>
-                <div class="gallery__item"><div class="gallery__item-bar"><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div><div class="gallery__item-dot"></div></div><img class="gallery__item-img" src="../powerbi5.png" alt="Maintenance and compliance dashboard"><div class="gallery__item-info"><span class="gallery__item-title">Maintenance and compliance dashboard</span><span class="gallery__item-type">Executive dashboard</span></div></div>
+                <!-- ITEM 1 -->
+                <div class="gallery__item">
+                    <div class="gallery__item-bar">
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                    </div>
+                    <img class="gallery__item-img" src="powerbi1.png" alt="Control de costes de mantenimiento">
+                    <div class="gallery__item-info">
+                        <span class="gallery__item-title">Control de costes de mantenimiento</span>
+                        <span class="gallery__item-type">Reporting operativo</span>
+                    </div>
+                </div>
+
+                <!-- ITEM 2 -->
+                <div class="gallery__item">
+                    <div class="gallery__item-bar">
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                    </div>
+                    <img class="gallery__item-img" src="powerbi2.png" alt="Evolución de inventario y consumos">
+                    <div class="gallery__item-info">
+                        <span class="gallery__item-title">Evolución de inventario y consumos</span>
+                        <span class="gallery__item-type">Análisis de stock</span>
+                    </div>
+                </div>
+
+                <!-- ITEM 3 -->
+                <div class="gallery__item">
+                    <div class="gallery__item-bar">
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                    </div>
+                    <img class="gallery__item-img" src="powerbi3.png" alt="Ranking de máquinas y órdenes de trabajo">
+                    <div class="gallery__item-info">
+                        <span class="gallery__item-title">Ranking de activos y órdenes de trabajo</span>
+                        <span class="gallery__item-type">Modelado + KPIs</span>
+                    </div>
+                </div>
+
+                <!-- ITEM 4 -->
+                <div class="gallery__item">
+                    <div class="gallery__item-bar">
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                    </div>
+                    <img class="gallery__item-img" src="powerbi4.png" alt="Gestión de activos y geolocalización">
+                    <div class="gallery__item-info">
+                        <span class="gallery__item-title">Gestión de activos y geolocalización</span>
+                        <span class="gallery__item-type">Gobierno + reporting</span>
+                    </div>
+                </div>
+
+                <!-- ITEM 5 -->
+                <div class="gallery__item">
+                    <div class="gallery__item-bar">
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                        <div class="gallery__item-dot"></div>
+                    </div>
+                    <img class="gallery__item-img" src="powerbi5.png" alt="Dashboard de mantenimiento y cumplimiento">
+                    <div class="gallery__item-info">
+                        <span class="gallery__item-title">Dashboard de mantenimiento y cumplimiento</span>
+                        <span class="gallery__item-type">Cuadro de mando</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container">
-            <div class="gallery__progress"><div class="gallery__progress-bar"><div class="gallery__progress-fill" id="galleryProgress"></div></div></div>
-            <div class="gallery__caption reveal"><p>Reporting designed to be read, not to exist.</p></div>
+            <div class="gallery__progress">
+                <div class="gallery__progress-bar">
+                    <div class="gallery__progress-fill" id="galleryProgress"></div>
+                </div>
+            </div>
+            <div class="gallery__caption reveal">
+                <p>Reporting diseñado para ser leído, no para existir.</p>
+            </div>
         </div>
     </section>
 
-    <section class="method" id="method">
+    <!-- ============================================
+         Method
+         ============================================ -->
+    <section class="method" id="metodo">
         <div class="container">
-            <div class="method__header reveal"><p class="section-tag">Method</p><h2 class="section-title">How we work</h2><p class="section-subtitle">A clear, results-oriented process with no surprises. Each phase has a concrete objective and a defined deliverable.</p></div>
+            <div class="method__header reveal">
+                <p class="section-tag">Método</p>
+                <h2 class="section-title">Cómo trabajamos</h2>
+                <p class="section-subtitle">Un proceso claro, orientado a resultado, sin sorpresas. Cada fase tiene un objetivo concreto y un entregable definido.</p>
+            </div>
             <div class="method__steps reveal-stagger">
-                <div class="method-step"><p class="method-step__number">01</p><h3 class="method-step__title">Understand</h3><p class="method-step__text">We listen to the business. What decisions you need to make, what data you have, what's not working today.</p></div>
-                <div class="method-step"><p class="method-step__number">02</p><h3 class="method-step__title">Design</h3><p class="method-step__text">We define the data model, metrics, report structure and executive reading experience.</p></div>
-                <div class="method-step"><p class="method-step__number">03</p><h3 class="method-step__title">Build</h3><p class="method-step__text">We implement dashboards, semantic model, governance and security. Everything documented and tested.</p></div>
-                <div class="method-step"><p class="method-step__number">04</p><h3 class="method-step__title">Operate</h3><p class="method-step__text">We maintain, evolve and support. Your environment improves over time, it doesn't degrade.</p></div>
+                <div class="method-step">
+                    <p class="method-step__number">01</p>
+                    <h3 class="method-step__title">Entender</h3>
+                    <p class="method-step__text">Escuchamos al negocio. Qué decisiones necesitas tomar, qué datos tienes, qué no funciona hoy.</p>
+                </div>
+                <div class="method-step">
+                    <p class="method-step__number">02</p>
+                    <h3 class="method-step__title">Diseñar</h3>
+                    <p class="method-step__text">Definimos modelo de datos, métricas, estructura de informes y experiencia de lectura ejecutiva.</p>
+                </div>
+                <div class="method-step">
+                    <p class="method-step__number">03</p>
+                    <h3 class="method-step__title">Construir</h3>
+                    <p class="method-step__text">Implantamos dashboards, modelo semántico, gobierno y seguridad. Todo documentado y testado.</p>
+                </div>
+                <div class="method-step">
+                    <p class="method-step__number">04</p>
+                    <h3 class="method-step__title">Operar</h3>
+                    <p class="method-step__text">Mantenemos, evolucionamos y damos soporte. Tu entorno mejora con el tiempo, no se degrada.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="team" id="team">
+    <!-- ============================================
+         Team
+         ============================================ -->
+    <section class="team" id="equipo">
         <div class="container">
-            <div class="team__header reveal"><p class="section-tag">Team</p><h2 class="section-title">Who we are</h2></div>
-            <p class="team__intro reveal">Atenea Data is a firm founded by two professionals with experience in data consultancy, analytical modeling and Power BI platforms. We work with few clients, with real dedication and with a level of rigor you won't find at a typical consultancy.</p>
+            <div class="team__header reveal">
+                <p class="section-tag">Equipo</p>
+                <h2 class="section-title">Quiénes somos</h2>
+            </div>
+            <p class="team__intro reveal">Atenea Data es una firma fundada por dos profesionales con experiencia en consultoría de datos, modelado analítico y plataformas Power BI. Trabajamos con pocos clientes, con dedicación real y con un nivel de exigencia que no vas a encontrar en una consultora al uso.</p>
             <div class="team__grid reveal-stagger">
                 <div class="team-member">
-                    <div class="team-member__photo"><img src="../esteban.png" alt="Esteban Cabrera" style="width:100%;height:100%;object-fit:cover;"></div>
-                    <div><h3 class="team-member__name">Esteban Cabrera</h3><p class="team-member__role">Founding partner · Reporting & data strategy</p><p class="team-member__bio">Mechanical engineer and MBA, specialized in connecting business, technology, operations and data to drive complex projects with a global vision.</p></div>
+                    <div class="team-member__photo">
+                        <img src="esteban.png" alt="Esteban Cabrera" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div>
+                        <h3 class="team-member__name">Esteban Cabrera</h3>
+                        <p class="team-member__role">Socio fundador · Reporting y estrategia de datos</p>
+                        <p class="team-member__bio">Ingeniero mecánico y MBA, especializado en conectar negocio, tecnología, operaciones y datos para impulsar proyectos complejos con una visión global.</p>
+                    </div>
                 </div>
                 <div class="team-member">
-                    <div class="team-member__photo"><img src="../aitor.png" alt="Aitor Gómez Pimpollo" style="width:100%;height:100%;object-fit:cover;"></div>
-                    <div><h3 class="team-member__name">Aitor Gómez Pimpollo</h3><p class="team-member__role">Founding partner · Platform & Power BI governance</p><p class="team-member__bio">Electronics and Industrial Automation Engineer with a Master's in Industry 4.0, specialized in digital transformation, technology integration and advanced analytics for industrial environments.</p></div>
+                    <div class="team-member__photo">
+                        <img src="aitor.png" alt="Aitor Gómez Pimpollo" style="width:100%;height:100%;object-fit:cover;">
+                    </div>
+                    <div>
+                        <h3 class="team-member__name">Aitor Gómez Pimpollo</h3>
+                        <p class="team-member__role">Socio fundador · Plataforma y gobierno Power BI</p>
+                        <p class="team-member__bio">Ingeniero en Electrónica y Automática Industrial con Máster en Industria 4.0, especializado en transformación digital, integración tecnológica y analítica avanzada para entornos industriales.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-section" id="contact">
+    <!-- ============================================
+         CTA
+         ============================================ -->
+    <section class="cta-section" id="contacto">
         <div class="container">
-            <h2 class="cta-section__title">Does your Power BI environment<br>need another level?</h2>
-            <p class="cta-section__subtitle">Tell us where you are and what you need. No commitment, no fluff, no generic presentations.</p>
-            <a href="contact.html" class="cta-section__btn">Contact<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+            <h2 class="cta-section__title">¿Tu entorno Power BI<br>necesita otro nivel?</h2>
+            <p class="cta-section__subtitle">Cuéntanos dónde estás y qué necesitas. Sin compromiso, sin humo, sin presentaciones genéricas.</p>
+            <a href="contacto.html" class="cta-section__btn">
+                Contactar
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
         </div>
     </section>
 
+    <!-- ============================================
+         Footer
+         ============================================ -->
     <footer class="footer">
         <div class="container">
             <div class="footer__inner">
                 <a href="index.html" class="footer__logo">Atenea <span>Data</span></a>
-                <div class="footer__links"><a href="services.html">Services</a><a href="index.html#method">Method</a><a href="index.html#team">Team</a><a href="mailto:info@ateneadata.com">info@ateneadata.com</a></div>
+                <div class="footer__links">
+                    <a href="servicios.html">Servicios</a>
+                    <a href="#metodo">Método</a>
+                    <a href="#equipo">Equipo</a>
+                    <a href="mailto:info@ateneadata.com">info@ateneadata.com</a>
+                </div>
                 <p class="footer__copy">© 2025 Atenea Data</p>
             </div>
-            <div class="footer__legal"><a href="legal-notice.html">Legal notice</a><a href="privacy.html">Privacy policy</a><a href="cookies.html">Cookie policy</a></div>
+            <div class="footer__legal">
+                <a href="aviso-legal.html">Aviso legal</a>
+                <a href="privacidad.html">Política de privacidad</a>
+                <a href="cookies.html">Política de cookies</a>
+            </div>
         </div>
     </footer>
 
+    <!-- ============================================
+         Scripts
+         ============================================ -->
     <script>
-        const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('nav--scrolled',window.pageYOffset>60);});
-        const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');hamburger.addEventListener('click',()=>{navLinks.classList.toggle('nav__links--open');});navLinks.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{navLinks.classList.remove('nav__links--open');});});
-        const revealElements=document.querySelectorAll('.reveal,.reveal-stagger');const revealObserver=new IntersectionObserver((entries)=>{entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add(entry.target.classList.contains('reveal')?'reveal--visible':'reveal-stagger--visible');revealObserver.unobserve(entry.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});revealElements.forEach(el=>revealObserver.observe(el));
-        document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});});});
-        const galleryTrack=document.getElementById('galleryTrack'),galleryPrev=document.getElementById('galleryPrev'),galleryNext=document.getElementById('galleryNext'),galleryProgress=document.getElementById('galleryProgress');
-        if(galleryTrack){const scrollAmt=()=>{const i=galleryTrack.querySelector('.gallery__item');return i?i.offsetWidth+24:400;};galleryPrev.addEventListener('click',()=>{galleryTrack.scrollBy({left:-scrollAmt(),behavior:'smooth'});});galleryNext.addEventListener('click',()=>{galleryTrack.scrollBy({left:scrollAmt(),behavior:'smooth'});});const updateProgress=()=>{const{scrollLeft,scrollWidth,clientWidth}=galleryTrack;const m=scrollWidth-clientWidth;if(m<=0)return;const p=scrollLeft/m;const bw=galleryProgress.parentElement.offsetWidth;const fw=Math.max(40,bw*(clientWidth/scrollWidth));galleryProgress.style.width=fw+'px';galleryProgress.style.left=(bw-fw)*p+'px';};galleryTrack.addEventListener('scroll',updateProgress);window.addEventListener('resize',updateProgress);setTimeout(updateProgress,100);let isDragging=false,startX,scrollStart;galleryTrack.addEventListener('mousedown',(e)=>{isDragging=true;startX=e.pageX-galleryTrack.offsetLeft;scrollStart=galleryTrack.scrollLeft;galleryTrack.style.scrollBehavior='auto';});galleryTrack.addEventListener('mousemove',(e)=>{if(!isDragging)return;e.preventDefault();galleryTrack.scrollLeft=scrollStart-(e.pageX-galleryTrack.offsetLeft-startX);});const stopDrag=()=>{isDragging=false;galleryTrack.style.scrollBehavior='smooth';};galleryTrack.addEventListener('mouseup',stopDrag);galleryTrack.addEventListener('mouseleave',stopDrag);}
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            if (currentScroll > 60) {
+                nav.classList.add('nav--scrolled');
+            } else {
+                nav.classList.remove('nav--scrolled');
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Mobile menu
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('nav__links--open');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('nav__links--open');
+            });
+        });
+
+        // Scroll reveal
+        const revealElements = document.querySelectorAll('.reveal, .reveal-stagger');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target.classList.contains('reveal')) {
+                        entry.target.classList.add('reveal--visible');
+                    }
+                    if (entry.target.classList.contains('reveal-stagger')) {
+                        entry.target.classList.add('reveal-stagger--visible');
+                    }
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Gallery — Navigation, drag scroll, progress bar
+        const galleryTrack = document.getElementById('galleryTrack');
+        const galleryPrev = document.getElementById('galleryPrev');
+        const galleryNext = document.getElementById('galleryNext');
+        const galleryProgress = document.getElementById('galleryProgress');
+
+        if (galleryTrack) {
+            const scrollAmount = () => {
+                const item = galleryTrack.querySelector('.gallery__item');
+                return item ? item.offsetWidth + 24 : 400;
+            };
+
+            galleryPrev.addEventListener('click', () => {
+                galleryTrack.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
+            });
+
+            galleryNext.addEventListener('click', () => {
+                galleryTrack.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+            });
+
+            // Progress bar
+            const updateProgress = () => {
+                const { scrollLeft, scrollWidth, clientWidth } = galleryTrack;
+                const maxScroll = scrollWidth - clientWidth;
+                if (maxScroll <= 0) return;
+                const pct = scrollLeft / maxScroll;
+                const barWidth = galleryProgress.parentElement.offsetWidth;
+                const fillWidth = Math.max(40, barWidth * (clientWidth / scrollWidth));
+                const fillLeft = (barWidth - fillWidth) * pct;
+                galleryProgress.style.width = fillWidth + 'px';
+                galleryProgress.style.left = fillLeft + 'px';
+            };
+
+            galleryTrack.addEventListener('scroll', updateProgress);
+            window.addEventListener('resize', updateProgress);
+            setTimeout(updateProgress, 100);
+
+            // Drag to scroll
+            let isDragging = false;
+            let startX, scrollStart;
+
+            galleryTrack.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                startX = e.pageX - galleryTrack.offsetLeft;
+                scrollStart = galleryTrack.scrollLeft;
+                galleryTrack.style.scrollBehavior = 'auto';
+            });
+
+            galleryTrack.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.pageX - galleryTrack.offsetLeft;
+                galleryTrack.scrollLeft = scrollStart - (x - startX);
+            });
+
+            const stopDrag = () => {
+                isDragging = false;
+                galleryTrack.style.scrollBehavior = 'smooth';
+            };
+
+            galleryTrack.addEventListener('mouseup', stopDrag);
+            galleryTrack.addEventListener('mouseleave', stopDrag);
+        }
     </script>
 </body>
 </html>
