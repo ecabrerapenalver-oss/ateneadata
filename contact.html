@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — Atenea Data</title>
+    <meta name="description" content="Contact Atenea Data. Tell us your situation and we'll propose an approach with no commitment.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles.css">
+    <style>
+        .contact-section { padding: clamp(60px, 8vw, 100px) 0 clamp(80px, 10vw, 140px); }
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(40px, 6vw, 100px); align-items: start; }
+        .contact-info__title { font-family: var(--font-display); font-size: 1.6rem; font-weight: 400; margin-bottom: 20px; }
+        .contact-info__text { font-size: 0.95rem; font-weight: 300; color: var(--text-secondary); line-height: 1.75; margin-bottom: 40px; }
+        .contact-info__item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+        .contact-info__icon { width: 40px; height: 40px; border: 1px solid var(--border-medium); border-radius: 4px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .contact-info__icon svg { width: 18px; height: 18px; color: var(--accent); }
+        .contact-info__label { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 2px; }
+        .contact-info__value { font-size: 0.92rem; color: var(--text-primary); }
+        .contact-info__value a { color: var(--accent); transition: opacity 0.3s ease; }
+        .contact-info__value a:hover { opacity: 0.8; }
+        .contact-form { background: var(--black-surface); border: 1px solid var(--border-subtle); border-radius: 6px; padding: clamp(28px, 3vw, 44px); }
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-secondary); margin-bottom: 8px; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 14px 16px; background: var(--black-card); border: 1px solid var(--border-medium); border-radius: 4px; color: var(--text-primary); font-family: var(--font-body); font-size: 0.92rem; font-weight: 300; transition: border-color 0.3s ease; outline: none; }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--accent); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: var(--text-tertiary); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .form-group select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%236A6A7A' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; cursor: pointer; }
+        .form-group select option { background: var(--black-card); color: var(--text-primary); }
+        .form-submit { display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-body); font-size: 0.88rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--black-deep); background: var(--accent); padding: 16px 40px; border: none; border-radius: 2px; cursor: pointer; transition: all 0.4s var(--ease-out-expo); width: 100%; justify-content: center; }
+        .form-submit:hover { background: var(--text-primary); transform: translateY(-2px); }
+        .form-success { display: none; text-align: center; padding: 40px 20px; }
+        .form-success.active { display: block; }
+        .form-success__icon { width: 56px; height: 56px; border-radius: 50%; background: var(--accent-glow-strong); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; }
+        .form-success__icon svg { color: var(--accent); }
+        .form-success__title { font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 10px; }
+        .form-success__text { font-size: 0.92rem; font-weight: 300; color: var(--text-secondary); }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <nav class="nav" id="nav"><div class="nav__inner"><a href="index.html" class="nav__logo">Atenea <span>Data</span></a><ul class="nav__links" id="navLinks"><li><a href="services.html">Services</a></li><li><a href="index.html#method">Method</a></li><li><a href="index.html#team">Team</a></li><li><a href="contact.html" class="nav__cta">Contact</a></li><li class="nav__lang"><a href="../contacto.html">ES</a><span class="nav__lang-sep">|</span><a href="#" class="active">EN</a></li></ul><button class="nav__hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+
+    <header class="page-header"><div class="container"><p class="page-header__tag">Contact</p><h1 class="page-header__title">Let's talk</h1><p class="page-header__subtitle">Tell us where you are and what you need. No commitment, no fluff, no generic presentations.</p></div></header>
+
+    <section class="contact-section"><div class="container"><div class="contact-grid">
+        <div class="reveal">
+            <h2 class="contact-info__title">Write to us directly</h2>
+            <p class="contact-info__text">Fill out the form or email us. We'll get back to you within 24 hours with an approach tailored to your situation.</p>
+            <div class="contact-info__item"><div class="contact-info__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 4L12 13 2 4"/></svg></div><div><p class="contact-info__label">Email</p><p class="contact-info__value"><a href="mailto:info@ateneadata.com">info@ateneadata.com</a></p></div></div>
+            <div class="contact-info__item"><div class="contact-info__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><p class="contact-info__label">Location</p><p class="contact-info__value">Madrid, Spain</p></div></div>
+            <div class="contact-info__item"><div class="contact-info__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div><div><p class="contact-info__label">Response time</p><p class="contact-info__value">Less than 24 hours</p></div></div>
+        </div>
+        <div class="reveal">
+            <div class="contact-form" id="contactFormWrapper">
+                <form id="contactForm" action="https://formspree.io/f/xeerrwdo" method="POST">
+                    <div class="form-group"><label for="name">Name</label><input type="text" id="name" name="name" placeholder="Your name" required></div>
+                    <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="you@company.com" required></div>
+                    <div class="form-group"><label for="company">Company</label><input type="text" id="company" name="company" placeholder="Your company name"></div>
+                    <div class="form-group"><label for="service">How can we help?</label><select id="service" name="service"><option value="">Select an option</option><option value="diagnosis">Power BI Diagnosis</option><option value="reporting">Executive reporting</option><option value="modeling">Data modeling & architecture</option><option value="governance">Governance & platform</option><option value="rescue">Power BI rescue</option><option value="operation">Continuous operation</option><option value="other">Other / Not sure</option></select></div>
+                    <div class="form-group"><label for="message">Message</label><textarea id="message" name="message" placeholder="Briefly tell us your situation and what you need..." required></textarea></div>
+                    <button type="submit" class="form-submit">Send message<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                </form>
+                <div class="form-success" id="formSuccess"><div class="form-success__icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div><h3 class="form-success__title">Message sent</h3><p class="form-success__text">We'll get back to you within 24 hours. Thank you for contacting Atenea Data.</p></div>
+            </div>
+        </div>
+    </div></div></section>
+
+    <footer class="footer"><div class="container"><div class="footer__inner"><a href="index.html" class="footer__logo">Atenea <span>Data</span></a><div class="footer__links"><a href="services.html">Services</a><a href="index.html#method">Method</a><a href="mailto:info@ateneadata.com">info@ateneadata.com</a></div><p class="footer__copy">© 2025 Atenea Data</p></div><div class="footer__legal"><a href="legal-notice.html">Legal notice</a><a href="privacy.html">Privacy policy</a><a href="cookies.html">Cookie policy</a></div></div></footer>
+
+    <script>const nav=document.getElementById('nav');window.addEventListener('scroll',()=>{nav.classList.toggle('nav--scrolled',window.pageYOffset>60);});const hamburger=document.getElementById('hamburger'),navLinks=document.getElementById('navLinks');hamburger.addEventListener('click',()=>{navLinks.classList.toggle('nav__links--open');});navLinks.querySelectorAll('a').forEach(l=>{l.addEventListener('click',()=>{navLinks.classList.remove('nav__links--open');});});const reveals=document.querySelectorAll('.reveal');const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('reveal--visible');obs.unobserve(e.target);}});},{threshold:0.15,rootMargin:'0px 0px -40px 0px'});reveals.forEach(el=>obs.observe(el));
+    const form=document.getElementById('contactForm'),success=document.getElementById('formSuccess');form.addEventListener('submit',async(e)=>{e.preventDefault();try{await fetch(form.action,{method:'POST',body:new FormData(form),headers:{'Accept':'application/json'}});form.style.display='none';success.classList.add('active');}catch(err){alert('Error sending. Please email us directly at info@ateneadata.com');}});</script>
+</body>
+</html>
